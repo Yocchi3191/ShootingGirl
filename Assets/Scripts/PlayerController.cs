@@ -32,4 +32,9 @@ public class PlayerController : MonoBehaviour
             transform.Translate(Vector2.down * speed * Time.deltaTime);
         }
     }
+
+    void Shot()
+    {
+        Instantiate( );
+    }
 }
