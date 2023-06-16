@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float speed = 5f;  // プレイヤーの移動速度
+    public float speed;  // プレイヤーの移動速度
+    public GameObject bulletPrefab; // 弾丸のプレハブを取得
+
 
     // Start is called before the first frame update
     void Start()
@@ -15,6 +17,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // 矢印キーで移動
         if (Input.GetKey(KeyCode.RightArrow))
         {
             transform.Translate(Vector2.right * speed * Time.deltaTime);
@@ -31,10 +34,12 @@ public class PlayerController : MonoBehaviour
         {
             transform.Translate(Vector2.down * speed * Time.deltaTime);
         }
-    }
 
-    void Shot()
-    {
-        Instantiate( );
+        // 弾丸の発射
+        if (Input.GetKey(KeyCode.DownArrow))
+        {
+            Vector3 offset = new(1f, 0f, 0f);  // プレイヤーの前方に1ユニットずらす
+            Instantiate(bulletPrefab, transform.position + offset, Quaternion.identity);
+        }
     }
 }
