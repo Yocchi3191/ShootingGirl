@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
         // 弾丸の発射
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Vector3 offset = new Vector3(1, 0,0);  // 弾丸をプレイヤーの前方に1ユニットずらす
+            Vector3 offset = new Vector3(1f, 0f,0f);  // 弾丸をプレイヤーの前方に1ユニットずらす
             Instantiate(bulletPrefab, transform.position + offset, Quaternion.identity);
         }
     }
