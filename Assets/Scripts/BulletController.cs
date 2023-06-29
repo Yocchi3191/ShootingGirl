@@ -25,11 +25,9 @@ public class BulletController : MonoBehaviour
         }
 
     }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("Hit!");
-        Destroy(gameObject);
-        Destroy(collision.gameObject);
-
+        Destroy(this.gameObject);
     }
 }

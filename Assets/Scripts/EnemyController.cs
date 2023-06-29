@@ -6,11 +6,21 @@ public class EnemyController : MonoBehaviour
 {
     public float speed;  // ˆÚ“®‘¬“x
     public GameObject bulletPrefab; // ’eŠÛ‚ÌƒvƒŒƒnƒu‚ðŽæ“¾
+    public int hp;
+
 
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(Fire());
+    }
+
+    void Update()
+    {
+        if (hp < 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private IEnumerator Fire()   // ’e”­ŽËƒRƒ‹[ƒ`ƒ“
@@ -22,5 +32,18 @@ public class EnemyController : MonoBehaviour
             Quaternion rotation = Quaternion.Euler(0f, 180f, 0f); //’eŠÛ‚ÌŒü‚«‚ð”½“]
             Instantiate(bulletPrefab, transform.position + offset, rotation);
         }
+    }
+
+    // ”í’eŽž‚ÌHPŒ¸ŽZˆ—
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        string getObjectTag = collision.gameObject.tag;
+        if (getObjectTag == "Bullet")
+        {
+            Debug.Log("Hit!");
+            hp--;
+        }
+
+
     }
 }
