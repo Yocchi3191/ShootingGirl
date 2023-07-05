@@ -6,20 +6,20 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    public GameObject player;
-    public GameObject enemy;
-    public GameObject player_prefab;
-    public GameObject enemy_prefab;
+    public GameObject player_prefab; //プレイヤーのプレハブ
+    public GameObject enemy_prefab; //ザコ敵のプレハブ
+    public GameObject player_instance; //ゲームシーン中のプレイヤーオブジェクト
+    public GameObject enemy_instance; //ゲームシーン中のザコ敵オブジェクト
 
 
     // Start is called before the first frame update
     void Start()
     {
-        player_prefab = GameObject.FindWithTag("Player");
-        enemy_prefab = GameObject.FindWithTag("Enemy");
+        player_instance = GameObject.FindWithTag("Player"); //プレイヤーのインスタンスを変数にアタッチ
+        enemy_instance = GameObject.FindWithTag("Enemy"); //ザコ敵のインスタンスを変数にアタッチ
 
-        StartCoroutine(PlayerRespawn());
-        StartCoroutine(EnemyRespawn());
+        StartCoroutine(PlayerSpawn()); //プレイヤーのスポーンコルーチンを開始
+        StartCoroutine(EnemySpawn()); //敵のスポーンコルーチンを開始
     }
 
     // Update is called once per frame
@@ -28,36 +28,21 @@ public class GameController : MonoBehaviour
 
     }
 
-    private IEnumerator PlayerRespawn()  // プレイヤーのリスポーン
+    private IEnumerator PlayerSpawn()  // プレイヤーのスポーン
     {
-        while (true)
-        {
-            if (player_prefab == null)
-            {
-                yield return new WaitForSeconds(1);
-                Instantiate(player);
-                player_prefab = GameObject.FindWithTag("Player");
-            }
-            else
-            {
-                yield return null;
-            }
-        }
+        yield return new WaitForSeconds(1); //1秒待って
+        Instantiate(player_prefab); //最インスタンス化(スポーン)
+        player_instance = GameObject.FindWithTag("Player"); //変数に再アタッチ
+        yield return null;
+
     }
 
-    private IEnumerator EnemyRespawn()   // 敵のリスポーン
+    private IEnumerator EnemySpawn()   // 敵のスポーン。機能はPlayerRespawn()のザコ敵版
     {
-        while (true)
-        {
-            if (enemy_prefab == null)
-            {
-                yield return new WaitForSeconds(1);
-                Instantiate(enemy);
-                enemy_prefab = GameObject.FindWithTag("Enemy");
-            }
-            {
-                yield return null;
-            }
-        }
+        yield return new WaitForSeconds(1);
+        Instantiate(enemy_prefab);
+        enemy_instance = GameObject.FindWithTag("Enemy");
+        yield return null;
+
     }
 }
